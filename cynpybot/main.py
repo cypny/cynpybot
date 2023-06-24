@@ -15,14 +15,23 @@ WEBHOOK_URL = f'{WEBHOOK_HOST}{WEBHOOK_PATH}'
 # webserver settings
 WEBAPP_HOST = '0.0.0.0'
 WEBAPP_PORT = os.getenv('PORT', default=3001)
+
+
 async def on_startup(dispatcher):
     await bot.set_webhook(WEBHOOK_URL, drop_pending_updates=True)
+
+
+
 async def on_shutdown(dispatcher):
     await bot.delete_webhook()
+
+
 @dp.message_handler()
 async def echo(message: types.Message):
     print("xui")
     await message.answer(message.text)
+
+
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)
     start_webhook(
